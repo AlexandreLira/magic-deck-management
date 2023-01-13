@@ -8,23 +8,31 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { DeckScreen } from '../screens/Deck';
 import { HomeScreen } from '../screens/Home';
 import { SearchScreen } from '../screens/Search';
+import { useTheme } from 'styled-components/native';
 
 
 const Stack = createNativeStackNavigator();
 const { Navigator, Screen } = createBottomTabNavigator();
 
 
-export function StackRoutes(){
+export function StackRoutes() {
     return (
         <Stack.Navigator>
-             <Stack.Screen name="Deck" component={DeckScreen} />
+            <Stack.Screen name="Deck" component={DeckScreen} />
         </Stack.Navigator>
     )
 }
 
 export function AppRoutes() {
+    const { colors } = useTheme()
     return (
-        <Navigator>
+        <Navigator
+            screenOptions={{
+                headerShown: false,
+                tabBarActiveTintColor: colors.main,
+                tabBarInactiveTintColor: colors.text,
+            }}
+        >
             <Screen
                 name='Decks'
                 component={HomeScreen}
