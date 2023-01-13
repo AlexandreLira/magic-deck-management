@@ -24,13 +24,16 @@ export function StackRoutes() {
 }
 
 export function AppRoutes() {
-    const { colors } = useTheme()
+    const { colors, fonts } = useTheme()
     return (
         <Navigator
             screenOptions={{
                 headerShown: false,
                 tabBarActiveTintColor: colors.main,
                 tabBarInactiveTintColor: colors.text,
+                tabBarLabelStyle: {
+                    fontFamily: fonts.bold
+                }
             }}
         >
             <Screen

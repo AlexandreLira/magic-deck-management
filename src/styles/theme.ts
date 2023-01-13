@@ -13,7 +13,10 @@ export default {
 
     shape: '#FFFFFF'
   },
-  
+  fonts: {
+    bold: 'Manrope-Bold',
+    regular: 'Manrope-Regular'
+  },
   sizes: {
     width: width,
     height: height,
