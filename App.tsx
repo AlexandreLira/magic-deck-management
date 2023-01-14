@@ -5,6 +5,8 @@
  * @format
  */
 
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+
 import React from 'react';
 import { ThemeProvider } from 'styled-components/native';
 import { Routes } from './src/routes';
@@ -16,16 +18,19 @@ import {
 } from 'react-native';
 
 function App(): JSX.Element {
-  
-  return( 
-    <ThemeProvider theme={theme}>
-       <StatusBar
-        animated={true}
-        backgroundColor={theme.colors.shape}
-        barStyle='dark-content'
-      />
-      <Routes />
-    </ThemeProvider>
+
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider theme={theme}>
+        <StatusBar
+          animated={true}
+          backgroundColor={theme.colors.shape}
+          barStyle='dark-content'
+        />
+        <Routes />
+      
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
 

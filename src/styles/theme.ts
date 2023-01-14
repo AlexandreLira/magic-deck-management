@@ -21,7 +21,7 @@ export default {
     width: width,
     height: height,
 
-    radius_small: 2,
+    radius_small: 4,
     radius_medium: 10,
     radius_large: 24,
 
