@@ -20,9 +20,16 @@ export default {
   sizes: {
     width: width,
     height: height,
+
+    radius_small: 2,
+    radius_medium: 10,
+    radius_large: 24,
+
+
+    padding: 24,
+
     spacing: 10,
+    
     item_size: Platform.OS === 'ios' ? width * 0.72 : width * 0.74,
-    radius: 10,
-    radius_2: 34
 }
 }
