@@ -1,8 +1,9 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import { Button } from '../../components/Button';
 import { DeckCard } from '../../components/DeckCard';
 import { Header } from '../../components/Header';
-import { Container, Content, DeckList, Separator } from './styles';
+import { Container, Content, DeckList, Footer, Separator } from './styles';
 
 
 const decks = [
@@ -35,8 +36,13 @@ export function HomeScreen() {
           data={decks}
           keyExtractor={item => item.id}
           renderItem={({ item }) => <DeckCard data={item} />}
-          ItemSeparatorComponent={() => <Separator/>}
+          ItemSeparatorComponent={() => <Separator />}
         />
+
+        <Footer>
+          <Button title='Criar um novo deck'/>
+        </Footer>
+        
       </Content>
     </Container>
   );
