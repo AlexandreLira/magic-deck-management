@@ -10,6 +10,7 @@ export default {
     text: '#717171',
 
     lightGray: '#DDDDDD',
+    warning: '#F23D3D',
 
     shape: '#FFFFFF'
   },

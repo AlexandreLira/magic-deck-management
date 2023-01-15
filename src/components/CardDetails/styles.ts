@@ -5,13 +5,13 @@ export const Container = styled(Animated.View)`
     width: ${({ theme }) => theme.sizes.item_size}px;
     background-color: ${({ theme }) => theme.colors.shape};
     
-
 `;
 
 
 
 export const Content = styled(Animated.View)`
-    padding: 20px;
+   padding: 20px;
+   
 `;
 export const CardImage = styled.Image.attrs({
     resizeMode: "contain"

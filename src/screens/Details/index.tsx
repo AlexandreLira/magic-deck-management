@@ -24,16 +24,20 @@ import {
 
 export function Details() {
     const {
-        onViewableItemsChanged,
         viewabilityConfig,
         cardsData,
         scrollX,
-        sizes,
         snapPoints,
         bottomSheetModalRef,
         decks,
+        cardIndex,
+        deck,
+        colors,
+        onViewableItemsChanged,
         handlePresentModalPress,
-        inputRange
+        inputRange,
+        handleAddCart,
+        handleRemoveCard
     } = useDetailsViewModel()
     return (
         <BottomSheetModalProvider>
@@ -67,11 +71,20 @@ export function Details() {
                     }}
                 />
                 <Footer>
-
-                    <Button
-                        onPress={handlePresentModalPress}
-                        title="Adicionar a um deck"
+                    {deck ?
+                       
+                        <Button
+                            onPress={handleRemoveCard}
+                            title="Remover do  deck"
+                            color={colors.warning}
                     />
+                        :
+                        <Button
+                            onPress={handlePresentModalPress}
+                            title="Adicionar a um deck"
+                        />
+                    }
+
                 </Footer>
             </Container>
 
@@ -89,7 +102,7 @@ export function Details() {
                     }}
                     data={decks}
                     keyExtractor={item => item.id}
-                    renderItem={({ item }) => <DeckCard data={item} />}
+                    renderItem={({ item }) => <DeckCard data={item} onPress={() => handleAddCart(item.id, cardsData[cardIndex])} />}
                     ItemSeparatorComponent={() => <Separator />}
                 />
 

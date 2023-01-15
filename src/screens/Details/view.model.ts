@@ -7,19 +7,16 @@ import React, {
     useState
 } from "react";
 
-import { Animated, Image, TouchableOpacity } from 'react-native'
+import { Animated } from 'react-native'
 import { useTheme } from 'styled-components'
 
-import { Button } from "../../components/Button";
-
-import { cards } from "../../common/utils/constants";
-import { CardDetails } from "../../components/CardDetails";
 import { CardModel } from "../../common/models/card.model";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
-
-
+import { addCard, removeCard } from "../../store/state/deck";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { StackRoutes, StackRoutesNavigatorRoutesProps } from "../../routes/app.routes";
 interface SeletedProps {
     index: string
 }
@@ -31,13 +28,20 @@ const seleted: SeletedProps = {
 
 export function useDetailsViewModel() {
     const [cardsData, setCardsData] = useState<CardModel[]>([])
-    const scrollX = useRef(new Animated.Value(0)).current;
-    const { sizes } = useTheme()
+    const [cardIndex, setCardIndex] = useState(1)
 
+    const scrollX = useRef(new Animated.Value(0)).current;
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+    const { sizes, colors } = useTheme()
     const { decks } = useSelector((state: RootState) => state.decks);
+
+    const { params } = useRoute<RouteProp<StackRoutes, 'Details'>>()
+    const { cards, deck } = params
     
     const snapPoints = useMemo(() => ['50','80%'], []);
+    const dispatch = useDispatch();
+
 
     const handlePresentModalPress = useCallback(() => {
         bottomSheetModalRef.current?.present();
@@ -47,8 +51,33 @@ export function useDetailsViewModel() {
         bottomSheetModalRef.current?.close();
     }, []);
 
-    const dispatch = useDispatch();
+    function handleAddCart(deckId: string, card: CardModel) {
+        const payload = {
+            deckId, 
+            card
+        }
 
+        dispatch(addCard(payload));
+        handleCloseModalPress()
+    }
+
+    function handleRemoveCard() {
+        const payload = {
+            cardId: cardsData[cardIndex].id,
+            deckId: deck!.id
+        }
+
+        const [deckFilted] = decks.filter(item => item.id === deck?.id)
+
+        setCardsData(deckFilted.cards)
+        setCardIndex(1)
+
+        dispatch(removeCard(payload));
+        handleCloseModalPress()
+
+    }
+
+  
 
     useEffect(() => {
         setCardsData([
@@ -59,7 +88,8 @@ export function useDetailsViewModel() {
             // @ts-ignore
             { id: 'right-spacer' }
         ])
-    }, [])
+    }, [params])
+
 
     const viewabilityConfig = {
         viewAreaCoveragePercentThreshold: 40,
@@ -68,6 +98,7 @@ export function useDetailsViewModel() {
 
 
     const onViewableItemsChanged = useCallback(({ viewableItems }: any) => {
+        setCardIndex(viewableItems[0].index)
         let id = viewableItems[0].item.id
         if (id === 'left-spacer') {
             id = '1'
@@ -93,16 +124,21 @@ export function useDetailsViewModel() {
 
 
     return {
-        onViewableItemsChanged,
-        inputRange,
         viewabilityConfig,
         cardsData,
         scrollX,
         snapPoints,
         bottomSheetModalRef,
         decks,
+        cardIndex,
+        sizes,
+        deck,
+        colors,
         handlePresentModalPress,
+        onViewableItemsChanged,
+        inputRange,
+        handleAddCart,
         onScroll,
-        sizes
+        handleRemoveCard
     }
 }

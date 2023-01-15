@@ -2,6 +2,7 @@ import React from 'react';
 import { Animated, FlatList, FlatListProps } from 'react-native';
 import styled from 'styled-components/native'
 import { CardModel } from '../../common/models/card.model';
+import { DeckModel } from '../../common/models/deck.model';
 
 
 export const Container = styled.View`
@@ -31,7 +32,7 @@ export const List = styled(Animated.FlatList).attrs(({ theme }) => ({
 
 export const DeckList = styled(FlatList)`
     flex: 1;
-` as React.ComponentType as new <DeckProps>() => FlatList<DeckProps>
+` as React.ComponentType as new <DeckModel>() => FlatList<DeckModel>
 
 
 export const Footer = styled.View`

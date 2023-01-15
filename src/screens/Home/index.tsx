@@ -31,7 +31,8 @@ export function HomeScreen() {
     decks,
 
     handlePresentModalPress,
-    handleSubmit
+    handleSubmit,
+    handleGoDeckScreen
   } = useHomeViewModel()
 
   return (
@@ -44,7 +45,7 @@ export function HomeScreen() {
           <DeckList
             data={decks}
             keyExtractor={item => item.id}
-            renderItem={({ item }) => <DeckCard data={item} />}
+            renderItem={({ item }) => <DeckCard data={item} onPress={() => handleGoDeckScreen(item)}/>}
             ItemSeparatorComponent={() => <Separator />}
           />
 

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { CardModel } from '../../common/models/card.model';
+import { CARD_DEFAULT_IMAGE } from '../../common/utils/constants';
 
 import {
   CardImage,
@@ -21,7 +22,7 @@ interface Props {
 export function CardDetails({ data, translateY }: Props) {
   return (
     <Container style={{ transform: [{ translateY }] }}>
-      <CardImage source={{ uri: data.image_uris.normal }} />
+      <CardImage source={{ uri: data.image_uris?.normal || CARD_DEFAULT_IMAGE}} />
       <Content>
         <Name>{data.name}</Name>
 
