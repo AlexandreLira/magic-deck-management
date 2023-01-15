@@ -4,26 +4,19 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useTheme } from 'styled-components/native';
 
 import { DeckScreen } from '../screens/Deck';
 import { HomeScreen } from '../screens/Home';
 import { SearchScreen } from '../screens/Search';
-import { useTheme } from 'styled-components/native';
+import { Details } from '../screens/Details';
 
 
 const Stack = createNativeStackNavigator();
 const { Navigator, Screen } = createBottomTabNavigator();
 
 
-export function StackRoutes() {
-    return (
-        <Stack.Navigator>
-            <Stack.Screen name="Deck" component={DeckScreen} />
-        </Stack.Navigator>
-    )
-}
-
-export function AppRoutes() {
+export function HomeTab() {
     const { colors, fonts } = useTheme()
     return (
         <Navigator
@@ -57,4 +50,19 @@ export function AppRoutes() {
             />
         </Navigator>
     );
+}
+
+
+export function AppRoutes() {
+    return (
+        <Stack.Navigator
+            screenOptions={{
+                headerShown: false
+            }}
+        >
+            <Stack.Screen name="Home" component={HomeTab} />
+            <Stack.Screen name="Details" component={Details} />
+        </Stack.Navigator>
+    )
+
 }

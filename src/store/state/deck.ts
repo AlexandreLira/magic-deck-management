@@ -15,7 +15,22 @@ interface DeckState {
 }
 
 const initialState: DeckState = {
-    decks: []
+    decks: [
+        {
+            id: '1',
+            title: 'Deck dental',
+            color: 'blue',
+            amount_cards: 0,
+            cards: [],
+        },
+        {
+            id: '2',
+            title: 'Deck supremo',
+            color: 'red',
+            amount_cards: 0,
+            cards: [],
+        },
+    ]
 }
 
 const deckSlice = createSlice({

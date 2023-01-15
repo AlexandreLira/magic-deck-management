@@ -9,8 +9,11 @@ export function SearchScreen() {
   const { 
     cardName,
     handleSearch,
-    cards
+    cards,
+    handleGoDetails
   } = useSearchViewModel()
+
+  
   
   return (
     <Container>
@@ -28,7 +31,7 @@ export function SearchScreen() {
 
         <Title>Resultados {cards.length > 0 && `( ${(cards.length)} )`}</Title>
 
-        <CardList data={cards}/>
+        <CardList data={cards} onPress={handleGoDetails}/>
 
       </Content>
     </Container>
