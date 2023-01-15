@@ -11,6 +11,7 @@ export const Container = styled.View`
 export const Content = styled.View`
     flex: 1;
     padding: ${({ theme }) => theme.sizes.padding}px;
+    padding-bottom: 0px;
 `;
 
 export const SearchBar = styled.View`

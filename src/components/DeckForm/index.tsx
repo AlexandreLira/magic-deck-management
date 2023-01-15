@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Button } from '../Button';
 import { Header } from '../Header';
 import { deckColors } from '../../common/utils/constants';
-
+import { useDeckFormViewModel } from './view.model';
 
 import {
     ColorLabel,
@@ -18,14 +18,27 @@ import {
     Title
 } from './styles';
 
+export interface DeckFormProps {
+    values?: {
+        title: string,
+        color: string
+    } | undefined;
+    onSubmit: (deck: {
+        title: string,
+        color: string
+    }) => void
+}
+
+export function DeckForm({ onSubmit, values }: DeckFormProps) {
+    const {
+        selectedColor,
+        deckName,
+        handleSelectedColor,
+        handlePress,
+        setDeckName,
+    } = useDeckFormViewModel({ onSubmit, values })
 
 
-export function DeckForm() {
-    const [selectedColor, setSelectedColor] = useState(deckColors[0])
-
-    function handleSelectedColor(color: string) {
-        setSelectedColor(color)
-    }
     return (
         <Container>
 
@@ -37,6 +50,8 @@ export function DeckForm() {
                     <Title>Nome: </Title>
                     <InputContent labelColor={selectedColor}>
                         <DeckNameInput
+                            value={deckName}
+                            onChangeText={setDeckName}
                             placeholder='Ex: Deck supremo'
                         />
                     </InputContent>
@@ -58,7 +73,7 @@ export function DeckForm() {
 
                 <Footer>
                     <Button
-                        onPress={() => { }}
+                        onPress={handlePress}
                         title="Adicionar"
                     />
                 </Footer>

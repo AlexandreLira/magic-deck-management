@@ -1,12 +1,18 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React from 'react';
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from '@gorhom/bottom-sheet';
 
+
+import { useHomeViewModel } from './view.model';
+
+
+
 import { Button } from '../../components/Button';
 import { DeckCard } from '../../components/DeckCard';
 import { Header } from '../../components/Header';
+import { DeckForm } from '../../components/DeckForm';
 
 import {
   Container,
@@ -15,42 +21,17 @@ import {
   Footer,
   Separator
 } from './styles';
-import { deckColors } from '../../common/utils/constants';
-import { DeckForm } from '../../components/DeckForm';
-import { useHomeViewModel } from './view.model';
-
-
-const decks = [
-  {
-    id: '63',
-    title: 'Magic',
-    color: 'blue',
-    amount_cards: 5
-  },
-  {
-    id: '853',
-    title: 'Magic',
-    color: 'red',
-    amount_cards: 5
-  },
-  {
-    id: '8543',
-    title: 'Magic',
-    color: 'gray',
-    amount_cards: 5
-  }
-]
 
 
 export function HomeScreen() {
 
-
   const {
     snapPoints,
     bottomSheetModalRef,
+    decks,
 
     handlePresentModalPress,
-    handleCloseModalPress
+    handleSubmit
   } = useHomeViewModel()
 
   return (
@@ -81,7 +62,9 @@ export function HomeScreen() {
           borderRadius: 24,
         }}
       >
-        <DeckForm />
+        <DeckForm 
+          onSubmit={handleSubmit}
+        />
       </BottomSheetModal>
     </BottomSheetModalProvider>
   );

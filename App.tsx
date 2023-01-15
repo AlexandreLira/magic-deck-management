@@ -16,19 +16,25 @@ import {
   StatusBar,
 
 } from 'react-native';
+import { store } from './src/store';
+import { Provider } from 'react-redux';
 
 function App(): JSX.Element {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+
       <ThemeProvider theme={theme}>
         <StatusBar
           animated={true}
           backgroundColor={theme.colors.shape}
           barStyle='dark-content'
         />
-        <Routes />
-      
+        <Provider store={store}>
+
+          <Routes />
+        </Provider>
+
       </ThemeProvider>
     </GestureHandlerRootView>
   );
