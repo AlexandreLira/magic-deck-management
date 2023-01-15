@@ -1,31 +1,57 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { CardList } from '../../components/CardList';
+import { DeckForm } from '../../components/DeckForm';
 import { Header } from '../../components/Header';
 import { Container, Content, Title } from './styles';
 import { useSearchViewModel } from './view.model';
 
 export function DeckScreen() {
-  const { 
-    cardName,
-    handleSearch,
+  const {
+
+    snapPoints,
     cards,
+    deck,
+    bottomSheetModalRef,
     handleGoDetails,
-    deck
+    handleGoBack,
+    handlePresentModalPress,
+    handleUpdateDeckSubmit
   } = useSearchViewModel()
 
-  
-  
+
+
   return (
     <Container>
-      <Header title={`Deck/${deck.title}`} />
-      <Content>
-        
-        <Title>{cards.length > 0 && cards.length} Cartas</Title>
+      <BottomSheetModalProvider>
+        <Header 
+          title={`Deck/${deck.title}`} 
+          onPressLeft={handleGoBack} 
+          onPressRight={handlePresentModalPress} 
+        />
+        <Content>
 
-        <CardList data={cards} onPress={handleGoDetails}/>
+          <Title>{cards.length > 0 && cards.length} Cartas</Title>
 
-      </Content>
+          <CardList data={cards} onPress={handleGoDetails} />
+
+        </Content>
+
+        <BottomSheetModal
+          ref={bottomSheetModalRef}
+          index={0}
+          snapPoints={snapPoints}
+          backgroundStyle={{
+            borderRadius: 24,
+          }}
+        >
+          <DeckForm
+            title="Atualizar"
+            onSubmit={handleUpdateDeckSubmit}
+            values={deck}
+          />
+        </BottomSheetModal>
+      </BottomSheetModalProvider>
     </Container>
   );
 }

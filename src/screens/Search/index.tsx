@@ -1,20 +1,22 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import { Button } from '../../components/Button';
 import { CardList } from '../../components/CardList';
 import { Header } from '../../components/Header';
-import { Container, Content, SearchBar, SearchBarIcon, SearchBarInput, Title } from './styles';
+import { Container, Content, Footer, SearchBar, SearchBarIcon, SearchBarInput, Title } from './styles';
 import { useSearchViewModel } from './view.model';
 
 export function SearchScreen() {
-  const { 
+  const {
     cardName,
-    handleSearch,
     cards,
+    handleSearch,
+    setCardName,
     handleGoDetails
   } = useSearchViewModel()
 
-  
-  
+
+
   return (
     <Container>
       <Header title='Pesquisar' />
@@ -24,16 +26,26 @@ export function SearchScreen() {
           <SearchBarIcon />
           <SearchBarInput
             placeholder='Pesquise uma carta'
-            onChangeText={handleSearch}
+            onChangeText={setCardName}
             value={cardName}
           />
         </SearchBar>
 
+
+
         <Title>Resultados {cards.length > 0 && `( ${(cards.length)} )`}</Title>
 
-        <CardList data={cards} onPress={handleGoDetails}/>
+        <CardList data={cards} onPress={handleGoDetails} />
 
       </Content>
+      <Footer>
+        <Button 
+          title='Pesquisar' 
+          onPress={handleSearch}
+          disabled={!Boolean(cardName.length)}
+        />
+      </Footer>
+
     </Container>
   );
 }

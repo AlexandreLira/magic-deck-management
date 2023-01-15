@@ -32,7 +32,9 @@ export function HomeScreen() {
 
     handlePresentModalPress,
     handleSubmit,
-    handleGoDeckScreen
+    handleGoDeckScreen,
+    handleCloseModalPress,
+    handleRemoveDeck
   } = useHomeViewModel()
 
   return (
@@ -45,7 +47,13 @@ export function HomeScreen() {
           <DeckList
             data={decks}
             keyExtractor={item => item.id}
-            renderItem={({ item }) => <DeckCard data={item} onPress={() => handleGoDeckScreen(item)}/>}
+            renderItem={({ item }) =>
+              <DeckCard
+                data={item}
+                onPress={() => handleGoDeckScreen(item)}
+                onLongPress={() => handleRemoveDeck(item.id)}
+              />
+            }
             ItemSeparatorComponent={() => <Separator />}
           />
 
@@ -63,7 +71,8 @@ export function HomeScreen() {
           borderRadius: 24,
         }}
       >
-        <DeckForm 
+        <DeckForm
+          title='Cadastrar'
           onSubmit={handleSubmit}
         />
       </BottomSheetModal>

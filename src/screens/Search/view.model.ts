@@ -10,12 +10,7 @@ export function useSearchViewModel() {
 
     const { navigate } = useNavigation<StackRoutesNavigatorRoutesProps>()
     
-    async function handleSearch(cardName: string) {
-        setCardName(cardName)
-        if (cardName.length === 0) {
-            setCards([])
-            return
-        }
+    async function handleSearch() {        
         const response = await searchCards(cardName)
         setCards(response)
     }
@@ -26,8 +21,9 @@ export function useSearchViewModel() {
 
     return {
         cardName,
+        cards,
         handleSearch,
         handleGoDetails,
-        cards
+        setCardName,
     }
 }

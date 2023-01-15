@@ -20,16 +20,19 @@ import {
 
 export interface DeckFormProps {
     values?: {
+        id: string,
         title: string,
         color: string
     } | undefined;
     onSubmit: (deck: {
+        id: string; 
         title: string,
         color: string
-    }) => void
+    }) => void,
+    title: string
 }
 
-export function DeckForm({ onSubmit, values }: DeckFormProps) {
+export function DeckForm({ onSubmit, values, title }: DeckFormProps) {
     const {
         selectedColor,
         deckName,
@@ -42,7 +45,7 @@ export function DeckForm({ onSubmit, values }: DeckFormProps) {
     return (
         <Container>
 
-            <Header title='Novo deck' />
+            <Header title={`${title} deck`} />
 
             <Content>
 
@@ -74,7 +77,7 @@ export function DeckForm({ onSubmit, values }: DeckFormProps) {
                 <Footer>
                     <Button
                         onPress={handlePress}
-                        title="Adicionar"
+                        title={title}
                     />
                 </Footer>
             </Content>

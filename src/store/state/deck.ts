@@ -16,6 +16,17 @@ interface removeCardProps {
     cardId: string
 }
 
+
+interface editDeckProps {
+    deckId: string;
+    title: string;
+    color: string
+} 
+
+interface removeDeckProps {
+    deckId: string;
+} 
+
 const initialState: DeckState = {
     decks: [
         {
@@ -41,6 +52,17 @@ const deckSlice = createSlice({
     reducers: {
         addDeck(state, action: PayloadAction<DeckModel>) {
             state.decks = [...state.decks, action.payload]
+        },
+
+        editDeck(state, action: PayloadAction<editDeckProps>) {
+            const deckIndex = state.decks.findIndex(deck => deck.id === action.payload.deckId)
+
+            state.decks[deckIndex].title = action.payload.title
+            state.decks[deckIndex].color = action.payload.color
+        },  
+
+        removeDeck(state, action: PayloadAction<removeDeckProps>) {
+            state.decks = state.decks.filter(deck => deck.id !== action.payload.deckId)
         },
 
         addCard(state, action: PayloadAction<AddCardToDeckProps>) {
@@ -72,5 +94,12 @@ const deckSlice = createSlice({
     }
 })
 
-export const { addDeck, addCard, removeCard } = deckSlice.actions;
+export const {
+    addDeck,
+    editDeck,
+    addCard,
+    removeCard,
+    removeDeck
+} = deckSlice.actions;
+
 export default deckSlice.reducer;

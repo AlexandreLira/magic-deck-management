@@ -11,9 +11,9 @@ export async function searchCards(cardName: string) {
         const response = await api.get(`cards/search?q=name:${cardName}&limit=10`);
         const { data } = response.data;
 
-        const cards = data.slice(0, 50)
+     
 
-        return cards
+        return data
 
 
     } catch (error) {

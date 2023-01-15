@@ -36,11 +36,18 @@ export function useDetailsViewModel() {
     const { sizes, colors } = useTheme()
     const { decks } = useSelector((state: RootState) => state.decks);
 
+    const navigation = useNavigation<StackRoutesNavigatorRoutesProps>()
     const { params } = useRoute<RouteProp<StackRoutes, 'Details'>>()
     const { cards, deck } = params
-    
-    const snapPoints = useMemo(() => ['50','80%'], []);
+
+    const snapPoints = useMemo(() => ['50', '80%'], []);
     const dispatch = useDispatch();
+
+    const viewabilityConfig = {
+        viewAreaCoveragePercentThreshold: 40,
+        waitForInteraction: true
+    };
+
 
 
     const handlePresentModalPress = useCallback(() => {
@@ -53,7 +60,7 @@ export function useDetailsViewModel() {
 
     function handleAddCart(deckId: string, card: CardModel) {
         const payload = {
-            deckId, 
+            deckId,
             card
         }
 
@@ -77,7 +84,11 @@ export function useDetailsViewModel() {
 
     }
 
-  
+    function handleGoBack(){
+        navigation.goBack()
+    }
+
+
 
     useEffect(() => {
         setCardsData([
@@ -91,10 +102,6 @@ export function useDetailsViewModel() {
     }, [params])
 
 
-    const viewabilityConfig = {
-        viewAreaCoveragePercentThreshold: 40,
-        waitForInteraction: true
-    };
 
 
     const onViewableItemsChanged = useCallback(({ viewableItems }: any) => {
@@ -139,6 +146,7 @@ export function useDetailsViewModel() {
         inputRange,
         handleAddCart,
         onScroll,
-        handleRemoveCard
+        handleRemoveCard,
+        handleGoBack
     }
 }

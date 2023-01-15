@@ -37,12 +37,13 @@ export function Details() {
         handlePresentModalPress,
         inputRange,
         handleAddCart,
-        handleRemoveCard
+        handleRemoveCard,
+        handleGoBack
     } = useDetailsViewModel()
     return (
         <BottomSheetModalProvider>
             <Container>
-                <Header title='Detalhes' />
+                <Header title='Detalhes'  onPressLeft={handleGoBack}/>
                 <List
                     data={cardsData}
                     keyExtractor={item => item.id}

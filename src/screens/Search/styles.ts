@@ -50,3 +50,12 @@ export const Title = styled.Text`
     margin-top: 24px;
     margin-bottom: 20px;
 `
+
+export const Footer = styled.View`
+    width: ${({ theme }) => theme.sizes.width}px;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 0px 20px 20px;
+`

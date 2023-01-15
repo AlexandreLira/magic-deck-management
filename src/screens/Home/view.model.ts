@@ -1,14 +1,17 @@
 import { useMemo, useRef, useCallback } from "react";
-
-import { addDeck } from '../../store/state/deck';
+import { Alert } from 'react-native'
+import { addDeck, removeDeck } from '../../store/state/deck';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { useNavigation } from "@react-navigation/native";
+
 import { RootState } from "../../store";
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigation } from "@react-navigation/native";
+
 import { StackRoutesNavigatorRoutesProps } from "../../routes/app.routes";
 import { DeckModel } from "../../common/models/deck.model";
 
 interface handleSubmitProps {
+    id?: string
     title: string;
     color: string
 }
@@ -44,7 +47,21 @@ export function useHomeViewModel() {
         handleCloseModalPress()
     }
 
+
+    function handleRemoveDeck(deckId: string) {
+        Alert.alert('Atenção', 'Deseja realmente excluir esse deck?', [
+            {
+                text: 'Cancelar',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+            },
+            { text: 'Sim', onPress: () => dispatch(removeDeck({ deckId })) },
+        ]);
+
+    }
+
     function handleGoDeckScreen(deck: DeckModel) {
+
         navigate('Deck', { deck })
     }
 
@@ -55,7 +72,9 @@ export function useHomeViewModel() {
         decks,
         handleSubmit,
         handlePresentModalPress,
-        handleGoDeckScreen
+        handleGoDeckScreen,
+        handleCloseModalPress,
+        handleRemoveDeck
 
     }
 }
