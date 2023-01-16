@@ -23,7 +23,7 @@ $ cd <folder>
 ```
 
 ```
-$ git clone https://github.com/AlexandreLira/react-native-pokedex.git
+$ git clone https://github.com/AlexandreLira/magic-deck-management.git
 ```
 
 ## Run 
